@@ -1,13 +1,5 @@
 {
-  "build": {
-    "commands": ["chmod +x build_real_webgl.sh", "./build_real_webgl.sh"]
-  },
   "deploy": {
-    "static": true,
-    "outputDir": "public"
-  },
-  "env": {
-    "NODE_VERSION": "18",
-    "UNITY_WEBGL": "true"
+    "static": true
   }
 }

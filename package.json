@@ -1,43 +1,12 @@
 {
   "name": "starwhisper-ar-education",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "StarWhisper AR Education Platform - Real WebGL AR Experience",
-  "main": "public/index.html",
+  "main": "index.html",
   "scripts": {
-    "build": "./build_real_webgl.sh",
-    "start": "cd public && python3 -m http.server 8000",
-    "dev": "cd public && python3 -m http.server 8000",
-    "deploy": "npm run build"
+    "start": "python3 -m http.server 8000"
   },
-  "keywords": [
-    "ar",
-    "education",
-    "webgl",
-    "unity",
-    "starwhisper",
-    "camera",
-    "mobile",
-    "tablet",
-    "real-ar"
-  ],
+  "keywords": ["ar", "education", "webgl", "mobile", "tablet", "real-ar"],
   "author": "StarWhisper Education Team",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "dependencies": {},
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lobos54321/GOGOMONKEY-XR.git"
-  },
-  "homepage": "https://github.com/lobos54321/GOGOMONKEY-XR#readme",
-  "bugs": {
-    "url": "https://github.com/lobos54321/GOGOMONKEY-XR/issues"
-  },
-  "zeabur": {
-    "buildCommand": "./build_real_webgl.sh",
-    "outputDirectory": "public",
-    "framework": "static"
-  }
+  "license": "MIT"
 }
