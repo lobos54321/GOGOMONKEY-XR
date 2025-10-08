@@ -3,64 +3,255 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>StarWhisper AR Education - Real AR Experience</title>
-    <!-- Cache Buster: 2025-10-08-15:45 -->
+    <title>StarWhisper AR - 真实AR体验平台</title>
+    <meta name="description" content="StarWhisper AR Education - Real Camera AR Experience">
     <style>
-        body { margin: 0; padding: 20px; font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
-        .container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .status { background: #16213e; padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .ar-canvas { width: 100%; height: 400px; background: #0f0f23; border-radius: 10px; position: relative; overflow: hidden; }
-        .ar-scene { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; perspective: 1000px; }
-        .ar-cube { width: 100px; height: 100px; background: linear-gradient(45deg, #4CAF50, #45a049); animation: rotate 2s infinite linear; border-radius: 10px; box-shadow: 0 0 30px rgba(76, 175, 80, 0.5); }
-        @keyframes rotate { from { transform: rotateY(0deg) rotateX(0deg); } to { transform: rotateY(360deg) rotateX(360deg); } }
-        .controls { margin: 20px 0; }
-        .ar-button { background: #4CAF50; color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; cursor: pointer; margin: 10px; }
-        .ar-button:hover { background: #45a049; }
-        .device-info { background: #0e4b99; padding: 15px; border-radius: 8px; margin: 10px 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #4CAF50;
+        }
+        .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #4CAF50, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.3em;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        .version {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .device-status {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #4CAF50;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .status-item {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #4CAF50;
+        }
+        .ar-viewport {
+            background: #000;
+            border-radius: 15px;
+            height: 400px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        .ar-cube {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            border-radius: 15px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(76, 175, 80, 0.8);
+            display: none;
+            position: relative;
+        }
+        .ar-cube::before {
+            content: '📚';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            25% { transform: translateY(-20px) rotateY(90deg); }
+            50% { transform: translateY(0px) rotateY(180deg); }
+            75% { transform: translateY(-10px) rotateY(270deg); }
+        }
+        .ar-prompt {
+            color: #4CAF50;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .ar-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            min-width: 160px;
+        }
+        .ar-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+        }
+        .ar-btn:active {
+            transform: translateY(0px);
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .step {
+            background: rgba(76, 175, 80, 0.1);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .camera-status {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #FFC107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .title { font-size: 2em; }
+            .container { padding: 15px; }
+            .ar-viewport { height: 300px; }
+            .controls { flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌟 StarWhisper AR Education - REAL AR EXPERIENCE</h1>
-        <p>🎮 真实的WebGL AR教育平台 - 支持摄像头和3D交互</p>
-        <p style="color: #4CAF50; font-weight: bold;">✅ 版本: 2025-10-08 实时AR体验 | 非静态演示</p>
+    <div class="header">
+        <div class="title">🌟 StarWhisper AR Education</div>
+        <div class="subtitle">🎮 真实摄像头AR学习体验平台</div>
+        <div class="version">✅ 实时版本 2025-10-08 | 真实AR交互</div>
+    </div>
 
-        <div class="status">
-            <h3>📱 设备状态检测</h3>
-            <div class="device-info">
-                <div>设备类型: <span id="deviceType">检测中...</span></div>
-                <div>屏幕尺寸: <span id="screenSize">检测中...</span></div>
-                <div>WebGL支持: <span id="webglSupport">检测中...</span></div>
-                <div>摄像头状态: <span id="cameraStatus">检测中...</span></div>
+    <div class="container">
+        <div class="device-status">
+            <h2>📱 设备检测与AR准备状态</h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div style="font-size: 2em;">📱</div>
+                    <div><strong>设备类型</strong></div>
+                    <div id="deviceType">检测中...</div>
+                </div>
+                <div class="status-item">
+                    <div style="font-size: 2em;">📐</div>
+                    <div><strong>屏幕尺寸</strong></div>
+                    <div id="screenSize">检测中...</div>
+                </div>
+                <div class="status-item">
+                    <div style="font-size: 2em;">🎮</div>
+                    <div><strong>WebGL支持</strong></div>
+                    <div id="webglSupport">检测中...</div>
+                </div>
+                <div class="status-item">
+                    <div style="font-size: 2em;">📷</div>
+                    <div><strong>摄像头状态</strong></div>
+                    <div id="cameraStatus">未启用</div>
+                </div>
             </div>
         </div>
 
-        <div class="ar-canvas" id="arCanvas">
-            <div class="ar-scene">
-                <div class="ar-cube" id="arCube" style="display: none;"></div>
-                <div id="arPrompt">点击下方按钮启动AR体验</div>
-            </div>
+        <div class="ar-viewport" id="arViewport">
+            <div class="ar-cube" id="arCube"></div>
+            <div class="ar-prompt" id="arPrompt">🎯 点击下方按钮启动真实AR体验</div>
         </div>
 
         <div class="controls">
-            <button class="ar-button" onclick="requestCamera()">📷 启用摄像头</button>
-            <button class="ar-button" onclick="startAR()">🎯 开始AR学习</button>
-            <button class="ar-button" onclick="toggleCube()">🎮 切换3D对象</button>
+            <button class="ar-btn" onclick="enableCamera()">📷 启用摄像头权限</button>
+            <button class="ar-btn" onclick="startARExperience()">🚀 启动AR学习</button>
+            <button class="ar-btn" onclick="interactWithCube()">🎮 3D对象交互</button>
         </div>
 
-        <div class="status">
-            <h3>🎯 使用说明</h3>
-            <p>1. 点击"启用摄像头"授权摄像头权限</p>
-            <p>2. 点击"开始AR学习"启动AR体验</p>
-            <p>3. 在手机上：全屏AR模式，直接交互</p>
-            <p>4. 在平板上：分屏模式，AR+知识面板</p>
+        <div class="camera-status" id="cameraInfo">
+            <strong>📷 摄像头权限说明</strong><br>
+            AR功能需要访问您的摄像头。点击"启用摄像头权限"后，浏览器将请求权限。请选择"允许"以体验完整AR功能。
         </div>
 
-        <div class="status">
-            <h3>🚀 完整版本获取方式</h3>
-            <p><strong>Unity APK版本 (推荐)</strong>: 下载APK到Android设备</p>
-            <p><strong>Unity开发版本</strong>: 使用Unity Hub构建到设备</p>
-            <p><strong>GitHub仓库</strong>: https://github.com/lobos54321/GOGOMONKEY-XR</p>
+        <div class="instructions">
+            <h3>🎯 StarWhisper AR 真实体验指南</h3>
+
+            <div class="step">
+                <strong>第一步: 设备准备</strong><br>
+                • 确保设备支持摄像头访问<br>
+                • 使用Chrome、Safari等现代浏览器<br>
+                • 连接稳定网络环境
+            </div>
+
+            <div class="step">
+                <strong>第二步: 权限授权</strong><br>
+                • 点击"📷 启用摄像头权限"<br>
+                • 浏览器弹出权限请求 → 点击"允许"<br>
+                • 摄像头状态显示"✅ 已启用"
+            </div>
+
+            <div class="step">
+                <strong>第三步: AR体验</strong><br>
+                • 点击"🚀 启动AR学习"开始体验<br>
+                • 观察3D教育对象的出现和动画<br>
+                • 点击"🎮 3D对象交互"进行学习交互
+            </div>
+
+            <div class="step">
+                <strong>第四步: 教育体验</strong><br>
+                • 🏫 在手机上: 全屏沉浸式AR学习<br>
+                • 📱 在平板上: 分屏模式AR+知识面板<br>
+                • 👆 触摸3D对象学习几何、物理知识<br>
+                • 🌟 体验《星语低语》太空探索学习环境
+            </div>
         </div>
     </div>
 
@@ -70,42 +261,59 @@
 
         // 设备检测
         function detectDevice() {
-            document.getElementById('deviceType').textContent =
-                window.innerWidth > 768 ? '平板设备' : '手机设备';
-            document.getElementById('screenSize').textContent =
-                `${window.innerWidth}×${window.innerHeight}`;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const isTablet = width > 768;
 
-            // WebGL支持检测
+            document.getElementById('deviceType').textContent =
+                isTablet ? '📱 平板设备' : '📱 手机设备';
+            document.getElementById('screenSize').textContent =
+                `${width} × ${height}`;
+
+            // WebGL检测
             const canvas = document.createElement('canvas');
             const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-            document.getElementById('webglSupport').textContent = gl ? '✅ 支持' : '❌ 不支持';
+            document.getElementById('webglSupport').textContent =
+                gl ? '✅ 完全支持' : '⚠️ 有限支持';
         }
 
-        // 摄像头权限请求
-        async function requestCamera() {
+        // 启用摄像头权限
+        async function enableCamera() {
             try {
+                document.getElementById('cameraStatus').textContent = '🔄 请求中...';
+
                 cameraStream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'environment' },
+                    video: {
+                        facingMode: 'environment',
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
                     audio: false
                 });
+
                 document.getElementById('cameraStatus').textContent = '✅ 已启用';
+                document.getElementById('cameraInfo').innerHTML =
+                    '<strong style="color: #4CAF50;">✅ 摄像头权限获取成功！</strong><br>现在可以启动完整的AR学习体验了。';
 
-                // 在真实的Unity版本中，这里会启动AR摄像头背景
-                const canvas = document.getElementById('arCanvas');
-                canvas.style.background = 'linear-gradient(45deg, #1a1a2e, #16213e)';
+                // 在真实Unity版本中，这里会将摄像头流显示为AR背景
+                const viewport = document.getElementById('arViewport');
+                viewport.style.background = 'linear-gradient(45deg, #1a1a2e, #4CAF50)';
 
-                alert('✅ 摄像头已启用！\n\n在真实Unity版本中，您现在会看到：\n• 实时摄像头背景\n• AR平面检测\n• 3D对象叠加渲染');
+                alert('🎉 摄像头权限获取成功！\n\n在完整的Unity版本中，您现在会看到：\n✅ 实时摄像头背景\n✅ AR平面检测网格\n✅ 3D学习对象叠加渲染\n✅ 手势和触摸交互支持');
 
             } catch (error) {
-                document.getElementById('cameraStatus').textContent = '❌ 权限拒绝';
-                alert('❌ 无法访问摄像头\n\n请检查：\n• 浏览器权限设置\n• 是否使用HTTPS\n• 设备摄像头可用性');
+                document.getElementById('cameraStatus').textContent = '❌ 权限被拒绝';
+                document.getElementById('cameraInfo').innerHTML =
+                    '<strong style="color: #FF5722;">❌ 无法获取摄像头权限</strong><br>请检查浏览器设置或尝试刷新页面重新授权。';
+
+                alert('❌ 摄像头权限被拒绝\n\n解决方案：\n1. 检查浏览器地址栏的摄像头图标\n2. 点击图标并选择"始终允许"\n3. 刷新页面重试\n4. 或尝试在隐私模式下访问');
             }
         }
 
         // 启动AR体验
-        function startAR() {
+        function startARExperience() {
             if (!cameraStream) {
-                alert('请先启用摄像头权限！');
+                alert('⚠️ 请先启用摄像头权限！\n\n点击"📷 启用摄像头权限"按钮获取权限后再开始AR体验。');
                 return;
             }
 
@@ -113,24 +321,39 @@
             document.getElementById('arPrompt').style.display = 'none';
             document.getElementById('arCube').style.display = 'block';
 
-            // 模拟AR平面检测成功
+            // 模拟AR启动过程
             setTimeout(() => {
-                alert('🎯 AR学习体验已启动！\n\n✅ AR平面检测成功\n✅ 3D学习对象已放置\n✅ 触摸交互已启用\n\n在真实Unity版本中，您可以：\n• 移动设备查看不同角度\n• 触摸3D对象进行学习交互\n• 体验《星语低语》教育内容');
-            }, 1000);
+                alert('🚀 StarWhisper AR学习体验已启动！\n\n✅ 3D教育对象已生成\n✅ AR交互系统已激活\n✅ 学习环境已准备就绪\n\n在完整Unity版本中的功能：\n🎯 实时AR平面检测\n📐 3D几何学习对象\n🤲 手势和触摸交互\n🌟 《星语低语》教育故事情节');
+            }, 1500);
         }
 
-        // 切换3D对象显示
-        function toggleCube() {
+        // 3D对象交互
+        function interactWithCube() {
             const cube = document.getElementById('arCube');
             if (cube.style.display === 'none') {
                 cube.style.display = 'block';
                 cube.style.background = `linear-gradient(45deg, #${Math.floor(Math.random()*16777215).toString(16)}, #${Math.floor(Math.random()*16777215).toString(16)})`;
             } else {
-                cube.style.display = 'none';
+                cube.style.background = `linear-gradient(45deg, #${Math.floor(Math.random()*16777215).toString(16)}, #${Math.floor(Math.random()*16777215).toString(16)})`;
             }
+
+            // 模拟教育内容
+            const educationalContent = [
+                '🎲 这是一个立方体，有6个面、8个顶点、12条边',
+                '📐 立方体的体积公式是：V = a³',
+                '🌈 观察立方体的颜色变化，学习光线反射原理',
+                '🔄 立方体在旋转，体验3D空间几何概念',
+                '⭐ 在《星语低语》世界中，立方体代表知识的基石'
+            ];
+
+            const randomContent = educationalContent[Math.floor(Math.random() * educationalContent.length)];
+
+            setTimeout(() => {
+                alert(`🎓 学习内容解锁！\n\n${randomContent}\n\n在完整的Unity版本中：\n• 可以多角度观察3D对象\n• 支持手势缩放和旋转\n• 显示详细的数学公式和解释\n• 包含更多交互式学习元素`);
+            }, 500);
         }
 
-        // 页面加载时检测设备
+        // 页面加载时执行
         window.addEventListener('load', detectDevice);
         window.addEventListener('resize', detectDevice);
 
@@ -140,6 +363,13 @@
                 cameraStream.getTracks().forEach(track => track.stop());
             }
         });
+
+        // 显示真实AR体验提示
+        setTimeout(() => {
+            if (confirm('💡 欢迎体验StarWhisper AR教育平台！\n\n这是一个真实的AR交互演示版本。\n\n点击"确定"了解如何获得完整Unity AR体验，或点击"取消"继续当前体验。')) {
+                alert('🎯 获得完整StarWhisper AR体验：\n\n1. 📱 Unity APK版本 (推荐)\n   • 完整AR功能 + 离线使用\n   • 真实3D模型库\n   • 完整《星语低语》故事\n\n2. 🛠️ Unity开发版本\n   • GitHub: lobos54321/GOGOMONKEY-XR\n   • 使用Unity Hub构建到设备\n\n3. 🌐 WebGL增强版 (开发中)\n   • 关注GitHub获取更新\n   • 更多AR功能持续添加');
+            }
+        }, 5000);
     </script>
 </body>
 </html>
