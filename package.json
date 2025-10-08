@@ -1,0 +1,38 @@
+{
+  "name": "starwhisper-ar-education",
+  "version": "1.0.0",
+  "description": "StarWhisper AR Education Platform - AI-driven AR learning for mobile and tablet",
+  "main": "index.js",
+  "scripts": {
+    "build": "./deploy.sh",
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "build:webgl": "./deploy.sh && cd Builds/WebGL && python3 -m http.server 8000",
+    "deploy": "npm run build:webgl"
+  },
+  "keywords": [
+    "ar",
+    "education",
+    "unity",
+    "starwhisper",
+    "decart-xr",
+    "mobile",
+    "tablet",
+    "ai"
+  ],
+  "author": "StarWhisper Education Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lobos54321/GOGOMONKEY-XR.git"
+  },
+  "homepage": "https://github.com/lobos54321/GOGOMONKEY-XR#readme",
+  "bugs": {
+    "url": "https://github.com/lobos54321/GOGOMONKEY-XR/issues"
+  }
+}

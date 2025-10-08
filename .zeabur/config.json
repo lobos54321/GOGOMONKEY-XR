@@ -1,0 +1,12 @@
+{
+  "build": {
+    "commands": ["chmod +x deploy_zeabur.sh", "./deploy_zeabur.sh"]
+  },
+  "deploy": {
+    "static": true,
+    "outputDir": "public"
+  },
+  "env": {
+    "NODE_VERSION": "18"
+  }
+}
