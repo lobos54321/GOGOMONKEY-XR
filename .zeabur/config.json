@@ -1,12 +1,13 @@
 {
   "build": {
-    "commands": ["chmod +x deploy_zeabur.sh", "./deploy_zeabur.sh"]
+    "commands": ["chmod +x build_real_webgl.sh", "./build_real_webgl.sh"]
   },
   "deploy": {
     "static": true,
     "outputDir": "public"
   },
   "env": {
-    "NODE_VERSION": "18"
+    "NODE_VERSION": "18",
+    "UNITY_WEBGL": "true"
   }
 }
