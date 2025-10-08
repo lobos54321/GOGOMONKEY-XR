@@ -1,11 +1,11 @@
-# StarWhisper AR Education Platform
+# StarWhisper AR Education Platform (GOGOMONKEY-XR)
 
 [![Unity Version](https://img.shields.io/badge/Unity-6000.0.34f1-blue.svg)](https://unity.com/)
 [![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-green.svg)]()
 [![AR Foundation](https://img.shields.io/badge/AR%20Foundation-5.0-orange.svg)]()
 [![License](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
 
-> 基于《星语低语》IP的沉浸式AR教育平台，支持手机和平板双端使用
+> 基于《星语低语》IP的沉浸式AR教育平台，支持手机和平板双端使用 | Powered by Decart-XR
 
 ![StarWhisper Banner](https://via.placeholder.com/800x200/4CAF50/FFFFFF?text=StarWhisper+AR+Education)
 
@@ -16,25 +16,33 @@
 - 🤖 **AI驱动个性化** - 基于Decart-XR + Graph RAG的智能教育内容生成
 - 🎯 **多学科支持** - 数学、科学、历史、语文等核心学科AR场景
 - 👶 **年龄自适应** - 3-12岁分层词汇和概念，个性化学习体验
+- 🌐 **Zeabur云部署** - 一键部署到云端，多端访问
 
 ## 🎮 立即体验
 
-### 📱 方法1：APK直接安装（推荐）
+### 🌐 方法1：在线演示 (推荐)
+
+访问Zeabur云端部署: **即将上线**
+- 手机浏览器AR体验
+- 平板分屏学习模式
+- 实时AI内容生成
+
+### 📱 方法2：APK直接安装
 
 ```bash
 # 下载预编译的APK文件
-wget https://github.com/your-username/StarWhisper-Education/releases/latest/download/StarWhisper-Android.apk
+wget https://github.com/lobos54321/GOGOMONKEY-XR/releases/latest/download/StarWhisper-Education.apk
 
 # 安装到Android设备
-adb install StarWhisper-Android.apk
+adb install StarWhisper-Education.apk
 ```
 
-### 🛠️ 方法2：Unity开发者模式
+### 🛠️ 方法3：Unity开发者模式
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/your-username/StarWhisper-Education.git
-cd StarWhisper-Education
+git clone https://github.com/lobos54321/GOGOMONKEY-XR.git
+cd GOGOMONKEY-XR
 
 # 2. 安装Unity 6
 # 下载Unity Hub: https://unity.com/unity-hub
@@ -45,18 +53,6 @@ cd StarWhisper-Education
 
 # 4. 构建到设备
 # File -> Build Settings -> Android/iOS -> Build and Run
-```
-
-### 🌐 方法3：Web演示版
-
-```bash
-# 访问在线演示
-https://your-username.github.io/StarWhisper-Education/
-
-# 或本地运行Web版本
-cd WebGL-Build
-python -m http.server 8000
-# 浏览器打开: http://localhost:8000
 ```
 
 ## 🎯 快速测试功能
@@ -85,10 +81,11 @@ python -m http.server 8000
 - **Decart-XR** - AI驱动的实时场景变换
 - **C#** - 主要开发语言
 - **Graph RAG** - 智能知识检索系统
+- **Zeabur** - 云端部署平台
 
 ### 项目结构
 ```
-StarWhisper-Education/
+GOGOMONKEY-XR/
 ├── 📱 Mobile/StarWhisper-AR/           # Unity主项目
 │   ├── Assets/StarWhisper/Scripts/     # C#核心代码
 │   │   ├── StarWhisperEducationPlatform.cs    # 主控制器
@@ -98,9 +95,10 @@ StarWhisper-Education/
 │   │   ├── EducationalPromptEngine.cs          # 教育AI
 │   │   └── StarWhisperDemo.cs                 # 测试演示
 │   └── ProjectSettings/                # Unity项目设置
-├── 🌐 Backend/                        # 后端服务（开发中）
-├── 💻 Frontend/                       # 教师Web端（计划中）
-└── 📖 Docs/                          # 技术文档
+├── 🌐 .zeabur/                        # Zeabur部署配置
+├── 📦 package.json                    # Node.js项目配置
+├── 🚀 deploy_zeabur.sh               # 云端构建脚本
+└── 📖 ZEABUR_DEPLOY.md               # 部署指南
 ```
 
 ### 核心组件
@@ -152,6 +150,7 @@ var prompt = await promptEngine.GenerateEducationalPrompt(
 - [x] Decart-XR移动端集成
 - [x] 教育Prompt引擎
 - [x] 测试演示程序
+- [x] Zeabur云部署配置
 
 ### 🔄 Phase 2 - 核心功能 (开发中)
 - [ ] Graph RAG知识图谱集成
@@ -166,6 +165,16 @@ var prompt = await promptEngine.GenerateEducationalPrompt(
 - [ ] 家长微信小程序
 - [ ] 高级AI功能
 - [ ] 多人协作学习
+
+## 🌐 云端部署
+
+### Zeabur一键部署
+1. 访问 [zeabur.com](https://zeabur.com)
+2. GitHub登录 → New Project → Import from GitHub
+3. 选择 `lobos54321/GOGOMONKEY-XR` 仓库
+4. 自动检测配置并部署
+
+详细部署指南: [ZEABUR_DEPLOY.md](ZEABUR_DEPLOY.md)
 
 ## 🔧 环境要求
 
@@ -224,7 +233,7 @@ var prompt = await promptEngine.GenerateEducationalPrompt(
 - 📧 **Email**: starwhisper.edu@example.com
 - 💬 **Discord**: [StarWhisper Community](https://discord.gg/starwhisper)
 - 📱 **微信群**: 添加微信号 `starwhisper-ar`
-- 🐛 **Issues**: [GitHub Issues](https://github.com/your-username/StarWhisper-Education/issues)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/lobos54321/GOGOMONKEY-XR/issues)
 
 ## 🌟 致谢
 
@@ -232,10 +241,11 @@ var prompt = await promptEngine.GenerateEducationalPrompt(
 - [Decart-XR](https://github.com/DecartAI/Decart-XR) - AI驱动的实时AR渲染
 - [Unity AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.0/) - AR开发框架
 - [《星语低语》](https://starwhisper.ai) - 原创IP支持
+- [Zeabur](https://zeabur.com) - 云端部署平台
 
 ---
 
 **让每个孩子都能在《星语低语》的宇宙中快乐学习！** 🌟
 
-[![GitHub stars](https://img.shields.io/github/stars/your-username/StarWhisper-Education.svg?style=social&label=Star)](https://github.com/your-username/StarWhisper-Education)
-[![GitHub forks](https://img.shields.io/github/forks/your-username/StarWhisper-Education.svg?style=social&label=Fork)](https://github.com/your-username/StarWhisper-Education/fork)
+[![GitHub stars](https://img.shields.io/github/stars/lobos54321/GOGOMONKEY-XR.svg?style=social&label=Star)](https://github.com/lobos54321/GOGOMONKEY-XR)
+[![GitHub forks](https://img.shields.io/github/forks/lobos54321/GOGOMONKEY-XR.svg?style=social&label=Fork)](https://github.com/lobos54321/GOGOMONKEY-XR/fork)
